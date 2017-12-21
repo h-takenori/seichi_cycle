@@ -38,6 +38,8 @@ gem 'haml-rails'
 
 gem 'devise'
 gem 'omniauth-twitter'
+gem 'vuejs-rails'
+gem 'sprockets-es6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

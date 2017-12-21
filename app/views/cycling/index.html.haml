@@ -1,6 +1,10 @@
-%h1 聖地サイクリング
-
-%div
-  - if @current_activity
+#cycling_index
+  - if @activity
+    %h3 #{@activity.course.name} コース サイクリング中
+    %p #{@activity.created_at.try(:strftime, "%Y/%m/%d %H:%M:%S")} 〜
+    .btn.btn-primary{"v-on:click":"send_location()", "v-bind:disabled":"disable_send"} 位置情報を送信
+    %div{"v-for":"position in positions"} {{position.coords.latitude}} - {{position.coords.longitude}}
   - else
     = link_to "始める", :begin, method:"post", class:"btn btn-primary"
+:javascript
+  cycling_index()
