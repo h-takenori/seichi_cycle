@@ -1,7 +1,4 @@
 %h1 聖地サイクリング
 %p.lead
 
-  = link_to "Twitterアカウントでサインイン", user_twitter_omniauth_authorize_path
-  -#Use this document as a way to quickly start any new project.
-  -#%br/
-  -#All you get is this text and a mostly barebones HTML document.
+  = link_to "Twitterアカウントでサインイン", user_twitter_omniauth_authorize_path(callback_url:ENV["CALLBACK_URL"])
