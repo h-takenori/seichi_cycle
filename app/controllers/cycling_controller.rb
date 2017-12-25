@@ -1,7 +1,7 @@
 class CyclingController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :sign_in]
   skip_before_action :verify_authenticity_token, only: [:begin, :add_coords]
-  before_action :set_activity, except: :begin
+  before_action :set_activity, only: [:index, :begin, :passes, :add_coords]
 
   def index
     unless user_signed_in?
@@ -11,8 +11,11 @@ class CyclingController < ApplicationController
 
   #開始する
   def begin
+    #古いデータを削除
+    current_user.activities.update_all(is_active:false)
+
     course = Course.first
-    @activity = Activity.create(course:course, user:current_user)
+    @activity = Activity.create(course:course, user:current_user, is_active:true)
     session[:activity_id] = @activity.id
     redirect_to "/"
   end
@@ -38,7 +41,7 @@ class CyclingController < ApplicationController
 
   private
   def set_activity
-    @activity = current_user.activities.active.first
+    @activity = current_user && current_user.activities.active.first
     # @activity = session[:activity_id] && Activity.find(session[:activity_id])
   end
 
