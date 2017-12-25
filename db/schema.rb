@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171225074733) do
+ActiveRecord::Schema.define(version: 20171225131717) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
     t.integer "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_active", default: false, null: false
     t.index ["course_id"], name: "index_activities_on_course_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
   end

@@ -3,17 +3,17 @@ function cycling_index(){
     el: '#cycling_index',
     data: {
       message: 'Hello Vue!',
-      positions: [],
+      passes:[],
       disable_send: false,
     },
     methods:{
+      //位置情報をサーバ送信する　
       send_location(){
         this.disable_send = true
         navigator.geolocation.getCurrentPosition((position)=>{
-          // console.log(position)
-          this.positions.unshift(position);
           $.post("/coords", {coords:position.coords}).then(data=>{
             console.log(position)
+            this.show_passes()
           }, error=>{
             alert("位置情報保存エラー")
           })
@@ -23,6 +23,13 @@ function cycling_index(){
           this.disable_send = false
         })
       },
+      show_passes(){
+        $.get("/passes").then(data=>{
+          this.passes = data.passes
+        },error=>{
+          console.log(error)
+        })
+      }
     }
   })
 }

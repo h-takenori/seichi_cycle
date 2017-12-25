@@ -2,8 +2,10 @@
   - if @activity
     %h3 #{@activity.course.name} コース サイクリング中
     %p #{@activity.created_at.try(:strftime, "%Y/%m/%d %H:%M:%S")} 〜
-    .btn.btn-primary{"v-on:click":"send_location()", "v-bind:disabled":"disable_send"} 位置情報を送信
-    %div{"v-for":"position in positions"} {{position.coords.latitude}} - {{position.coords.longitude}}
+    %p
+      .btn.btn-default{"v-on:click":"show_passes()", "v-bind:disabled":"disable_send"} 再表示
+      .btn.btn-primary{"v-on:click":"send_location()", "v-bind:disabled":"disable_send"} 位置情報を送信
+    %div{"v-for":"pass in passes"} {{pass.name}} ({{pass.lat}}, {{pass.lng}}) {{pass.created_at}}
   - else
     = link_to "始める", :begin, method:"post", class:"btn btn-primary"
 :javascript

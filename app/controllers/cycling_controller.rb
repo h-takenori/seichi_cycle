@@ -1,7 +1,7 @@
 class CyclingController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :sign_in]
   skip_before_action :verify_authenticity_token, only: [:begin, :add_coords]
-  before_action :set_activity
+  before_action :set_activity, except: :begin
 
   def index
     unless user_signed_in?
@@ -17,6 +17,14 @@ class CyclingController < ApplicationController
     redirect_to "/"
   end
 
+  def passes
+    passes = @activity.passes
+                 .left_joins(:checkpoint)
+                 .select("passes.*, checkpoints.name")
+                 .order("created_at desc")
+    render json:{passes:passes}
+  end
+
   def add_coords
     pass = Pass.create!(activity:@activity, lat:params[:coords][:latitude], lng:params[:coords][:longitude])
     near_checkpoint = pass.find_near_checkpoint
@@ -30,7 +38,8 @@ class CyclingController < ApplicationController
 
   private
   def set_activity
-    @activity = session[:activity_id] && Activity.find(session[:activity_id])
+    @activity = current_user.activities.active.first
+    # @activity = session[:activity_id] && Activity.find(session[:activity_id])
   end
 
   def distance(pos1, pos2)

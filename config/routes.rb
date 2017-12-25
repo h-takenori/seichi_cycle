@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   scope controller:"cycling" do
     get :sign_in
+    get :passes
     post :begin
     post "coords" => "cycling#add_coords"
   end
