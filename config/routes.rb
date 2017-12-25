@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   scope controller:"cycling" do
     get :sign_in
     post :begin
+    post "coords" => "cycling#add_coords"
   end
+
   root "cycling#index"
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do

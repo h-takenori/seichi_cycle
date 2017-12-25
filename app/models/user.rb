@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-  devise :omniauthable
+  devise :omniauthable, :rememberable
 end

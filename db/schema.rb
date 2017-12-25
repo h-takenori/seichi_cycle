@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171221112705) do
+ActiveRecord::Schema.define(version: 20171225074733) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -21,10 +21,31 @@ ActiveRecord::Schema.define(version: 20171221112705) do
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
+  create_table "checkpoints", force: :cascade do |t|
+    t.integer "course_id"
+    t.string "name"
+    t.decimal "lat"
+    t.decimal "lng"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_checkpoints_on_course_id"
+  end
+
   create_table "courses", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "passes", force: :cascade do |t|
+    t.integer "activity_id"
+    t.integer "checkpoint_id"
+    t.decimal "lat"
+    t.decimal "lng"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_passes_on_activity_id"
+    t.index ["checkpoint_id"], name: "index_passes_on_checkpoint_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -32,6 +53,7 @@ ActiveRecord::Schema.define(version: 20171221112705) do
     t.string "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "remember_created_at"
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end
 
