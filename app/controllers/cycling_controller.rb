@@ -28,10 +28,13 @@ class CyclingController < ApplicationController
     render json:{passes:passes}
   end
 
+  #pass情報を登録する
   def add_coords
     pass = Pass.create!(activity:@activity, lat:params[:coords][:latitude], lng:params[:coords][:longitude])
     near_checkpoint = pass.find_near_checkpoint
+    #チェックポイントが近かったら、ツイートする
     if near_checkpoint
+
       pass.checkpoint = near_checkpoint
       pass.save!
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171225131717) do
+ActiveRecord::Schema.define(version: 20171229122430) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -55,6 +55,11 @@ ActiveRecord::Schema.define(version: 20171225131717) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "remember_created_at"
+    t.string "role", default: "user"
+    t.string "name"
+    t.string "nickname"
+    t.string "oauth_token"
+    t.string "oauth_token_secret"
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end
 

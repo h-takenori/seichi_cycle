@@ -35,11 +35,15 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bootstrap'
 gem 'jquery-rails'
 gem 'haml-rails'
+gem 'twitter'
 
 gem 'devise'
 gem 'omniauth-twitter'
+
 gem 'vuejs-rails'
 gem 'sprockets-es6'
+
+gem 'rails-erd', group: [:development, :test]
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
