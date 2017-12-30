@@ -14,7 +14,7 @@ class CyclingController < ApplicationController
     #古いデータを削除
     current_user.activities.update_all(is_active:false)
 
-    course = Course.first
+    course = Course.find(params[:course_id])
     @activity = Activity.create(course:course, user:current_user, is_active:true)
     session[:activity_id] = @activity.id
     redirect_to "/"

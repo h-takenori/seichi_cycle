@@ -7,6 +7,10 @@
       .btn.btn-primary{"v-on:click":"send_location()", "v-bind:disabled":"disable_send"} 位置情報を送信
     %div{"v-for":"pass in passes"} {{pass.name}} ({{pass.lat}}, {{pass.lng}}) {{pass.created_at}}
   - else
-    = link_to "始める", :begin, method:"post", class:"btn btn-primary"
+    = form_tag url_for(action:"begin") do
+      %label コース選択
+      = select_tag "course_id",
+        options_for_select(Course.where(kind:10).map{|c|[c.name, c.id]}.to_h), :class=>"form-control"
+      %button.btn.btn-primary{type:"submit"} 始める
 :javascript
   cycling_index()

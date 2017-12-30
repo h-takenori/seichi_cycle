@@ -18,4 +18,22 @@ https://seichi.ancouapp.com
     end
     client.update(text)
   end
+
+  def self.read
+    require 'nokogiri'
+
+    fields = [:place, :lat, :lon]
+    print fields.join("\t") + "\n"
+
+    kml_file = '/Users/hiraotakenori/Downloads/mymap.kml'
+    @doc = Nokogiri::XML(File.open(kml_file))
+    p @doc.at_css('name').text
+    @doc.css('Placemark').each do |placemark|
+      name = placemark.at_css('name')
+      coordinates = placemark.at_css('coordinates')
+      lat,lon = coordinates.text.gsub("\n", "").gsub(" ", "").split(',')
+      # p coordinates.text.gsub("\n", "").gsub(" ", "")
+      # puts [name.text, lat, lon].join("\t")
+    end
+  end
 end
