@@ -6,7 +6,7 @@ class Tweet
 https://maps.google.com/maps?q=#{checkpoint.lat.to_s},#{checkpoint.lng.to_s}
 https://seichi.ancouapp.com
 }
-    # tweet user, text
+    tweet user, text
   end
 
   def self.tweet user, text
