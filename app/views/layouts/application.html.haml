@@ -22,7 +22,7 @@
             - if user_signed_in?
               - if @activity
                 %li.active
-                  = link_to "サイクリング終了", destroy_user_session_path
+                  = link_to "サイクリング終了", url_for(action:"finish"), method:"POST"
               - else
                 %li.active
                   = link_to "サインアウト", destroy_user_session_path

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get :sign_in
     get :passes
     post :begin
+    post :finish
     post "coords" => "cycling#add_coords"
   end
 

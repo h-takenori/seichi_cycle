@@ -1,7 +1,7 @@
 class CyclingController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :sign_in]
   skip_before_action :verify_authenticity_token, only: [:begin, :add_coords]
-  before_action :set_activity, only: [:index, :begin, :passes, :add_coords]
+  before_action :set_activity, only: [:index, :begin, :passes, :add_coords, :finish]
 
   def index
     unless user_signed_in?
@@ -34,12 +34,20 @@ class CyclingController < ApplicationController
     near_checkpoint = pass.find_near_checkpoint
     #チェックポイントが近かったら、ツイートする
     if near_checkpoint
-
+      tweet_checkpoint current_user, near_checkpoint
       pass.checkpoint = near_checkpoint
       pass.save!
     end
     @activity.save!
     render json:{result:"ok"}
+  end
+
+  #activity finish
+  def finish
+    @activity.is_active = false
+    @activity.save!
+
+    redirect_to url_for(action: :index)
   end
 
   private
