@@ -1,6 +1,6 @@
 class CyclingController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :sign_in]
-  skip_before_action :verify_authenticity_token, only: [:begin, :add_coords]
+  skip_before_action :verify_authenticity_token, only: [:begin, :add_coords, :finish]
   before_action :set_activity, only: [:index, :begin, :passes, :add_coords, :finish]
 
   def index
